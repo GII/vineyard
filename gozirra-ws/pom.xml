@@ -7,6 +7,7 @@
     <groupId>com.hi3project.vineyard.comm</groupId>
     <version>0.5.0</version>
     <packaging>jar</packaging>
+    <url>https://github.com/GII/vineyard</url>
     
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Stomp implementation with support for Stomp over WebSockets.</description>
@@ -39,7 +40,10 @@
                
     <scm>
         <!-- especificar la url del SCM -->
-        <developerConnection>https://github.com/GII/vineyard</developerConnection>
+        <developerConnection>scm:git:https://github.com/GII/vineyard.git</developerConnection>
+        <connection>scm:git:https://github.com/GII/vineyard.git</connection>
+        <url>https://github.com/GII/vineyard.git</url>
+        <tag>HEAD</tag>
     </scm>
     
     <properties>
