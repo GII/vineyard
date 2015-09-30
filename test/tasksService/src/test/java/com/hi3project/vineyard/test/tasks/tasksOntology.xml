@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Copyright (C) 2015 Mytech Ingenieria Aplicada <http://www.mytechia.com>
+Copyright (C) 2015 Alejandro Paz <alejandropl@lagostelle.com>
+
+This file is part of Vineyard.
+
+Vineyard is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+Vineyard is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Vineyard If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<ontology URI="http://hi3project.com/broccoli/test/tasks#tasksOntology"
+          ontologyLanguage="http://hi3project.com/broccoli/bsdl#ontology"
+          versionNumber="0.9.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+    
+    
+    <concept URI="http://hi3project.com/broccoli/test/tasks#NamedThing"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+    
+        <property name="nameOF" URI="http://hi3project.com/broccoli/bsdl#literal">
+            <multiplicity min="1" max="1" />
+        </property>
+    
+    </concept>
+    
+    
+    <concept URI="http://hi3project.com/broccoli/test/tasks#Project"             
+             subconceptOf="http://hi3project.com/broccoli/test/tasks#NamedThing"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xsi:noNamespaceSchemaLocation="../bsdlSchema.xsd">
+        
+        <property name="tasksFromProject" URI="http://hi3project.com/broccoli/test/tasks#Task">
+            <multiplicity min="1" max="1" />
+        </property>
+        
+    </concept>
+    
+    
+    <concept URI="http://hi3project.com/broccoli/test/tasks#Task"             
+             subconceptOf="http://hi3project.com/broccoli/test/tasks#NamedThing"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xsi:noNamespaceSchemaLocation="../bsdlSchema.xsd">
+        
+    </concept>
+    
+    
+</ontology>

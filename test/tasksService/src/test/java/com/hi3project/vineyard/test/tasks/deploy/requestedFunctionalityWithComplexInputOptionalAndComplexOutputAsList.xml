@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<instance of="http://hi3project.com/broccoli/bsdm/profile#requestedFunctionality"
+          URI="http://hi3project.com/vineyard/test/tasks/client#requestForTaskServiceReturningTask"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+        
+    <import prefix="model" to="http://hi3project.com/broccoli/test/tasks" dialect="bsdl"/>
+    
+    <with property="optional" >
+        <with property="input" >
+            <with property="name" value="Un Proyecto"/>
+            <with property="type" valueURI="model:#Project"/>
+        </with>
+    </with>
+    
+    <with property="output">
+        <with property="name" value="Una Tarea"/>
+        <with property="type" valueURI="model:#NamedThing"/>
+    </with>
+    
+    <with property="preferred" >
+        <with property="output">
+            <with property="name" value="Una Tarea"/>
+            <with property="type" valueURI="model:#Task"/>
+        </with>
+    </with>
+    
+</instance>

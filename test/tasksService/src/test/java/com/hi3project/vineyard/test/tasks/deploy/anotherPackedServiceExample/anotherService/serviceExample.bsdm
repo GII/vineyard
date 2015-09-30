@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ontology URI="http://hi3project.com/vineyard/test/tasks#serviceOntology"
+          ontologyLanguage="http://hi3project.com/broccoli/bsdl#ontology"
+          versionNumber="0.9.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+
+    <instance of="http://hi3project.com/broccoli/bsdm#serviceDescription"
+          URI="http://hi3project.com/vineyard/test/tasks/service#serviceDescription"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+    
+        <with property="profile">
+            <instance of="http://hi3project.com/broccoli/bsdm#serviceProfile" 
+                  URI="http://hi3project.com/vineyard/test/tasks/service#serviceProfile">        
+                <with property="name" value="taskService"/>    
+                <with property="advertisedFunctionality" >
+                    <instance 
+                        of="http://hi3project.com/broccoli/bsdm/profile#advertisedFunctionality"
+                        URI="http://hi3project.com/vineyard/test/tasks/service/profile#getTasksOf">                    
+                        <import prefix="model"
+                            to="http://hi3project.com/broccoli/test/tasks" 
+                            dialect="owl:2"/>                
+                        <with property="name" value="getTasksOf"/>            
+                        <with property="input">
+                            <with property="name" value="Proyecto"/>
+                            <with property="type" valueURI="model:#Project"/>
+                        </with>
+                        <with property="output">
+                            <with property="name" value="Tarea"/>
+                            <with property="type" valueURI="model:#Task"/>
+                        </with>
+                    </instance>
+                </with>
+            </instance>
+        </with>
+        
+        <with property="grounding">
+            <instance of="http://hi3project.com/broccoli/bsdm#serviceGrounding"
+                  URI="http://hi3project.com/vineyard/test/tasks/service#serviceGrounding">
+                <with property="groundingType" value="javaLocal"/>
+            </instance>
+        </with>
+    
+        <with property="implementation">
+            <instance of="http://hi3project.com/broccoli/bsdm#serviceImplementation"
+                  URI="http://hi3project.com/vineyard/test/tasks/service#serviceImplementation">
+                <with property="implementationType" value="javaJenaBeansBSDL"/>
+                <with property="functionalityImplementation">
+                    <instance of="http://hi3project.com/broccoli/bsdm/implementation#functionalityImplementationJena"
+                          URI="http://com.hi3project.semanticServices#implementation/getTasksOfBSDL">
+                        <with property="class" 
+                          value="com.hi3project.broccoli.test.tasksmodel.ParticipantsOfTask"/>
+                        <with property="method" value="getTasksOf"/>
+                        <with property="advertisedFunctionality" 
+                          ofURI="http://hi3project.com/vineyard/test/tasks/service/profile#getTasksOf"/>
+                        <with property="ontologyToJava">
+                            <with property="ontologyURI" 
+                              valueURI="http://hi3project.com/broccoli/test/tasks"/>
+                            <with property="javaNamespace" 
+                              value="com.hi3project.broccoli.test.tasksmodel"/>
+                        </with>                
+                    </instance>
+                </with>    
+            </instance>
+        </with>
+    </instance>
+
+</ontology>

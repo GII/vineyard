@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Copyright (C) 2015 Mytech Ingenieria Aplicada <http://www.mytechia.com>
+Copyright (C) 2015 Alejandro Paz <alejandropl@lagostelle.com>
+
+This file is part of Vineyard.
+
+Vineyard is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+Vineyard is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Vineyard If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hi3project.vineyard.test</groupId>
+    <artifactId>tasksService</artifactId>
+    <version>0.9.0</version>
+    <packaging>jar</packaging>
+    
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Tests for Vineyard, using an example service (Tasks service).</description>
+    
+    <developers>
+        <developer>
+            <name>Alejandro Paz</name>
+            <url>https://github.com/alejandropl</url>
+        </developer>
+    </developers>
+    
+    <organization>
+        <name>Mytech Ingenieria Aplicada</name>
+    </organization>
+    
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License Version 3</name>
+            <url>http://www.gnu.org/licenses/agpl-3.0.html</url>
+        </license>
+    </licenses>
+    
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyy_MM_dd</maven.build.timestamp.format>
+        <release.basedir>release</release.basedir>
+        <release.dir>${maven.build.timestamp}_${project.version}</release.dir>
+    </properties>
+    
+
+    <profiles>
+        
+        <profile>
+            <id>publicRelease</id>
+            
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+            
+            
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                </plugins>
+            </build>
+            
+        </profile>
+        
+    </profiles>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    
+    <dependencies>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency> 
+        
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>         
+        
+        <dependency>  
+            <groupId>org.slf4j</groupId>  
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.10</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>org.slf4j</groupId>  
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.10</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>log4j</groupId>  
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>com.fasterxml.jackson.core</groupId>  
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.fasterxml.jackson.core</groupId>  
+            <artifactId>jackson-core</artifactId>
+            <version>2.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.fasterxml.jackson.core</groupId>  
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>com.hp.hpl.jena</groupId>  
+            <artifactId>jena</artifactId>
+            <version>2.6.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hp.hpl.jena</groupId>  
+            <artifactId>arq</artifactId>
+            <version>2.8.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hp.hpl.jena</groupId>  
+            <artifactId>tdb</artifactId>
+            <version>0.8.10</version>
+            <scope>compile</scope>
+        </dependency>
+                
+        <dependency>  
+            <groupId>com.github.ansell.aterms</groupId>  
+            <artifactId>aterm-java</artifactId>
+            <version>1.8.2</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>com.github.ansell.pellet</groupId>  
+            <artifactId>pellet-common</artifactId>
+            <version>2.3.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.github.ansell.pellet</groupId>  
+            <artifactId>pellet-cli</artifactId>
+            <version>2.3.3</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.ansell.owlapi</groupId>
+                    <artifactId>owlapi-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.github.ansell.owlapi</groupId>
+                    <artifactId>owlapi-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.github.ansell.owlapi</groupId>
+                    <artifactId>owlapi-parsers</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.github.ansell.owlapi</groupId>
+                    <artifactId>owlapi-tools</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>  
+            <groupId>com.github.ansell.pellet</groupId>  
+            <artifactId>pellet-jena</artifactId>
+            <version>2.3.3</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>net.sourceforge.owlapi</groupId>  
+            <artifactId>owlapi-distribution</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        
+        <dependency>  
+            <groupId>org.apache.geronimo.specs</groupId>  
+            <artifactId>geronimo-jms_1.1_spec</artifactId>
+            <version>1.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>org.fusesource.hawtbuf</groupId>  
+            <artifactId>hawtbuf</artifactId>
+            <version>1.11</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.3.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>org.apache.activemq</groupId>  
+            <artifactId>activemq-client</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+        <dependency>  
+            <groupId>org.apache.activemq</groupId>  
+            <artifactId>activemq-broker</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+        <dependency>  
+            <groupId>org.apache.activemq</groupId>  
+            <artifactId>activemq-stomp</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+        <dependency>  
+            <groupId>org.apache.activemq</groupId>  
+            <artifactId>activemq-http</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+        <dependency>  
+            <groupId>org.apache.activemq</groupId>  
+            <artifactId>activemq-web</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+        
+        <dependency>  
+            <groupId>com.mytechia</groupId>  
+            <artifactId>mytechia-commons-library</artifactId>
+            <version>1.0.9</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--
+        <dependency>  
+            <groupId>com.hi3project.unida</groupId>  
+            <artifactId>unida-library</artifactId>
+            <version>1.1.3</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sourceforge.owlapi</groupId>
+                    <artifactId>owlapi-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.sourceforge.owlapi</groupId>
+                    <artifactId>owlapi-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.sourceforge.owlapi</groupId>
+                    <artifactId>owlapi-apibinding</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        -->
+        
+        <dependency>  
+            <groupId>com.hi3project.broccoli</groupId>  
+            <artifactId>broccoli-api</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.broccoli</groupId>  
+            <artifactId>broccoli-impl</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.broccoli</groupId>  
+            <artifactId>broccoli-owls</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.broccoli</groupId>  
+            <artifactId>broccoli-tools</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>com.hi3project.vineyard</groupId>  
+            <artifactId>vineyard-grounding</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.vineyard</groupId>  
+            <artifactId>vineyard-registryclient</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.vineyard</groupId>  
+            <artifactId>vineyard-registryserver</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.vineyard.comm</groupId>  
+            <artifactId>vineyard-broker</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.vineyard</groupId>  
+            <artifactId>vineyard-tools</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.vineyard</groupId>  
+            <artifactId>vineyard-microcontainer</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.vineyard</groupId>  
+            <artifactId>vineyard-yottacontainer</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>  
+            <groupId>com.hi3project.broccoli.test</groupId>  
+            <artifactId>taskmodel-impl-one</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>  
+            <groupId>com.hi3project.broccoli.test</groupId>  
+            <artifactId>taskmodel-impl-two</artifactId>
+            <version>0.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mindswap</groupId>
+            <artifactId>owlsapi</artifactId>
+            <version>3.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.thewebsemantic</groupId>  
+            <artifactId>jenabean</artifactId>  
+            <version>1.0.6</version>
+            <scope>compile</scope>
+        </dependency>
+        
+    </dependencies>
+    
+</project>

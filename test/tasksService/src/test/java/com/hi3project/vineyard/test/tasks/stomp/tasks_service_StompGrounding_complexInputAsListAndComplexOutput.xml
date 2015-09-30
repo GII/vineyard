@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Copyright (C) 2015 Mytech Ingenieria Aplicada <http://www.mytechia.com>
+Copyright (C) 2015 Alejandro Paz <alejandropl@lagostelle.com>
+
+This file is part of Vineyard.
+
+Vineyard is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+Vineyard is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Vineyard If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<ontology URI="http://hi3project.com/vineyard/test/tasks/service#ontology"
+          ontologyLanguage="http://hi3project.com/broccoli/bsdl#ontology"
+          versionNumber="0.9.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+    
+    <instance of="http://hi3project.com/broccoli/bsdm#serviceDescription"
+              URI="http://hi3project.com/vineyard/test/tasks/service#serviceDescription"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:noNamespaceSchemaLocation="bsdlSchema.xsd">
+    
+        <with property="profile">
+            <instance of="http://hi3project.com/broccoli/bsdm#serviceProfile" 
+                      URI="http://hi3project.com/vineyard/test/tasks/service#serviceProfile">
+        
+                <with property="name" value="taskService"/>
+    
+                <with property="advertisedFunctionality" >
+                    <instance 
+                        of="http://hi3project.com/broccoli/bsdm/profile#advertisedFunctionality"
+                        URI="http://hi3project.com/vineyard/test/tasks/service/profile#buildProjectFrom">
+                    
+                        <import prefix="model" 
+                                to="http://hi3project.com/broccoli/test/tasks" 
+                                dialect="owl:2"/>
+                
+                        <with property="name" value="buildProjectFrom"/>
+            
+                        <with property="input">
+                            <with property="name" value="Tarea"/>
+                            <with property="type" valueURI="model:#Task"/>
+                        </with>
+            
+                        <with property="output">
+                            <with property="name" value="Proyecto"/>
+                            <with property="type" valueURI="model:#Project"/>
+                        </with>
+                                                
+                    </instance>
+                </with>
+            </instance>
+        </with>
+        
+        
+        <with property="grounding">
+            <instance of="http://hi3project.com/broccoli/bsdm/grounding#asyncStompMessageGrounding"
+                      URI="http://hi3project.com/vineyard/test/tasks/service#serviceGrounding">
+                <with property="ontologyLanguage" value="BSDL"/>
+                <with property="url" value="stomp://localhost:61701"/>
+                <with property="functionalityGrounding">
+                    <instance
+                        of="http://hi3project.com/broccoli/bsdm/grounding#asyncStompMessageFunctionalityGrounding"
+                        URI="http://hi3project.com/vineyard/test/tasks/service/grounding#buildProjectFrom">
+                        <with property="advertisedFunctionality"
+                              ofURI="http://hi3project.com/vineyard/test/tasks/service/profile#buildProjectFrom"/>
+                    </instance>
+                </with>                
+            </instance>
+        </with>
+   
+    </instance>
+
+</ontology>
