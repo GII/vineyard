@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Copyright (C) 2015 Mytech Ingenieria Aplicada <http://www.mytechia.com>
+Copyright (C) 2015 Alejandro Paz <alejandropl@lagostelle.com>
+
+This file is part of Vineyard.
+
+Vineyard is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+Vineyard is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Vineyard If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hi3project.vineyard</groupId>
+    <artifactId>vineyard-aggregator</artifactId>
+    <version>0.9.0</version>
+
+    <packaging>pom</packaging>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description> Vineyard parent pom </description>
+    
+    <developers>
+        <developer>
+            <name>Alejandro Paz</name>
+            <url>https://github.com/alejandropl</url>
+        </developer>
+    </developers>
+    
+    <organization>
+        <name>Mytech Ingenieria Aplicada</name>
+    </organization>
+    
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License Version 3</name>
+            <url>http://www.gnu.org/licenses/agpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <url>https://github.com/GII/vineyard</url>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/GII/vineyard.git</developerConnection>
+        <connection>scm:git:https://github.com/GII/vineyard.git</connection>
+        <url>https://github.com/GII/vineyard.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>../vineyard-grounding</module>
+        <module>../vineyard-registryclient</module>
+        <module>../vineyard-registryserver</module>
+        <module>../vineyard-tools</module>
+        <module>../vineyard-commbroker</module>
+        <module>../vineyard-yottacontainer</module>
+        <module>../vineyard-microcontainer</module>
+        <module>../vineyard-picocontainer</module>
+    </modules>
+
+    <profiles>
+
+        <profile>
+            <id>publicRelease</id>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+
+        </profile>
+
+    </profiles>
+
+
+</project>
